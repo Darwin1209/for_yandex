@@ -12,21 +12,20 @@ export function submit(e) {
     const fieldsArray = prepData.map((el) => ({
         name: el.name,
         value: el.value,
-        valid: el.dataset.valid,
+        valid: el.dataset.valid ? el.dataset.valid : 'no-type',
         label: el.previousElementSibling,
         labelValid: el.nextElementSibling,
     }));
     fieldsArray.forEach(({ valid, labelValid, value }) => {
         if (valid !== 'passTwo') {
-            valid;
-            const valideted = Validation[valid](value);
-            valideted
+            const validated = Validation[valid](value);
+            validated
                 ? labelValid?.classList.remove(CLASS_LABEL_VALID)
                 : labelValid?.classList.add(CLASS_LABEL_VALID);
         }
         else {
-            const valideted = Validation[valid](value, fieldsArray.find((el) => el.name === 'password').value);
-            valideted
+            const validated = Validation[valid](value, fieldsArray.find((el) => el.name === 'password')?.value);
+            validated
                 ? labelValid?.classList.remove(CLASS_LABEL_VALID)
                 : labelValid?.classList.add(CLASS_LABEL_VALID);
         }
@@ -52,15 +51,22 @@ export function blur(e) {
     const label = inp.previousElementSibling;
     const labelValid = inp.nextElementSibling;
     if (valid !== 'passTwo') {
-        valid;
-        const valideted = Validation[valid](inp.value);
-        valideted
+        const validated = Validation[valid](inp.value);
+        validated
             ? labelValid?.classList.remove(CLASS_LABEL_VALID)
             : labelValid?.classList.add(CLASS_LABEL_VALID);
     }
     else {
-        const valideted = Validation[valid](inp.value, e.currentTarget.elements.password.value);
-        valideted
+        let pass;
+        for (let i = 0; i < e.currentTarget.elements.length; i++) {
+            const item = e.currentTarget.elements[i];
+            if (item.name === 'password') {
+                pass = item.value;
+                break;
+            }
+        }
+        const validated = Validation[valid](inp.value, pass);
+        validated
             ? labelValid?.classList.remove(CLASS_LABEL_VALID)
             : labelValid?.classList.add(CLASS_LABEL_VALID);
     }

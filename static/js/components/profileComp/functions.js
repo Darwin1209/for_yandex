@@ -20,7 +20,15 @@ export function blur(e) {
             : labelValid?.classList.add(CLASS_LABEL_VALID);
     }
     else {
-        const valideted = Validation[valid](inp.value, e.currentTarget.elements.password.value);
+        let pass;
+        for (let i = 0; i < e.currentTarget.elements.length; i++) {
+            const item = e.currentTarget.elements[i];
+            if (item.name === 'password') {
+                pass = item.value;
+                break;
+            }
+        }
+        const valideted = Validation[valid](inp.value, pass);
         valideted
             ? labelValid?.classList.remove(CLASS_LABEL_VALID)
             : labelValid?.classList.add(CLASS_LABEL_VALID);

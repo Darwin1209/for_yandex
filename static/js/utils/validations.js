@@ -6,6 +6,21 @@ export var TYPES_VALIDATION;
     TYPES_VALIDATION["PHONE"] = "phone";
     TYPES_VALIDATION["MAIL"] = "mail";
 })(TYPES_VALIDATION || (TYPES_VALIDATION = {}));
+// interface ValidationObject {
+//   regularExp: {
+//     login: RegExp;
+//     text: RegExp;
+//     pass: RegExp;
+//     phone: RegExp;
+//     mail: RegExp;
+//   }
+//   text(string: string): boolean;
+//   pass(string: string): boolean;
+//   passTwo(string: string, stringCopy: string): boolean;
+//   phone(string: string): boolean;
+//   mail(string: string): boolean;
+//   login(string: string): boolean;
+// }
 export const Validation = {
     regularExp: {
         login: /^[a-z0-9_-]{3,16}$/,
@@ -31,6 +46,6 @@ export const Validation = {
     },
     mail(string) {
         return this.regularExp.mail.test(string);
-    }
+    },
 };
 //# sourceMappingURL=validations.js.map

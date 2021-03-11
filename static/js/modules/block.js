@@ -1,16 +1,9 @@
 import { EventBus } from '../utils/EventBus.js';
 class Block {
-    /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
     constructor(tagName = 'div', props = {}) {
-        // const eventBus = new EventBus()
         this._meta = {
             tagName: '',
-            props: {}
+            props: {},
         };
         this._id = null;
         this.setProps = (nextProps) => {
@@ -25,7 +18,6 @@ class Block {
         };
         this.props = this._makePropsProxy({ ...props });
         this.eventBus = new EventBus();
-        // this.eventBus = () => eventBus
         this._registerEvents(this.eventBus);
         this.eventBus.emit(Block.EVENTS.INIT);
     }
@@ -60,6 +52,7 @@ class Block {
         }
     }
     componentDidUpdate(oldProps, newProps) {
+        console.log(oldProps, newProps);
         return true;
     }
     get element() {
@@ -69,14 +62,14 @@ class Block {
         const block = this.render();
         this._removeEvents();
         //!Временное решение для ререндера страницы
-        this._element.innerHTML = "";
+        this._element.innerHTML = '';
         this._element?.insertAdjacentHTML('afterbegin', block);
         this._addEvents();
         this.eventBus.emit(Block.EVENTS.FLOW_CDR);
     }
     // Переопределяется пользователем. Необходимо вернуть разметку
     render() {
-        return "";
+        return '';
     }
     getContent() {
         return this.element;
@@ -117,7 +110,7 @@ class Block {
     _createDocumentElement(tagName) {
         // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
         const element = document.createElement(tagName);
-        element.className = this.props.className;
+        element.className = this.props.className || '';
         return element;
     }
     show() {
