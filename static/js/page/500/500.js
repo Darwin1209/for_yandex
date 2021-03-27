@@ -10,7 +10,7 @@ export default class E500 extends Block {
                     context: {
                         code: '500',
                         message: 'Мы уже фиксим',
-                        link: 'index.html',
+                        link: '/',
                         linkText: 'Назад к чатам',
                     },
                 }),

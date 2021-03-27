@@ -1,7 +1,9 @@
+import Router from '../../routers/Router.js';
 import Block from '../../modules/block.js';
 import Form from '../../components/form/index.js';
 import { renderChildren } from '../../utils/renderChildren.js';
 import { fields } from './mock.js';
+const router = new Router('#root');
 export default class Auth extends Block {
     constructor() {
         super('main', {
@@ -12,8 +14,9 @@ export default class Auth extends Block {
                     context: {
                         title: 'Авторизация',
                         submit: 'Авторизоваться',
-                        link: 'registration.html',
+                        link: '/registration',
                         linkLabel: 'Нет аккаунта?',
+                        type: 'auth',
                         fields,
                     },
                 }),

@@ -1,20 +1,16 @@
 import { EventBus } from '../utils/EventBus.js'
-// import { v4 as makeUUID } from "uuid"
-// Нельзя создавать экземпляр данного класса
+import Router from '../routers/Router.js'
+import { replaceLink } from '../utils/replaceLink.js'
 
 export interface Props {
-  events?: {
-		click: Event,
-		submit: Event,
-		focus: Event,
-		blur: Event,
+	[key: string]: any
+	events?: {
+		[key: string]: (...args: any) => void
 	}
-  components?: Block[]
-  className?: string | undefined
-  items?: object[]
-  context?: {
-
-	}
+	components?: Block[]
+	className?: string | undefined
+	items?: object[]
+	context?: {}
 	list?: object[]
 }
 
@@ -31,22 +27,14 @@ class Block {
 		FLOW_CDR: 'flow:component-did-render',
 	}
 
-	_element:HTMLElement
+	_element: HTMLElement
 	_meta = {
 		tagName: '',
-		props: {}
+		props: {},
 	}
 	_id = null
 
-	/** JSDoc
-	 * @param {string} tagName
-	 * @param {Object} props
-	 *
-	 * @returns {void}
-	 */
 	constructor(tagName = 'div', props = {}) {
-		// const eventBus = new EventBus()
-
 		this._meta = {
 			tagName,
 			props,
@@ -54,8 +42,6 @@ class Block {
 
 		this.props = this._makePropsProxy({ ...props })
 		this.eventBus = new EventBus()
-
-		// this.eventBus = () => eventBus
 
 		this._registerEvents(this.eventBus)
 		this.eventBus.emit(Block.EVENTS.INIT)
@@ -67,6 +53,7 @@ class Block {
 		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
 		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
 		eventBus.on(Block.EVENTS.FLOW_CDR, this._componentDidRender.bind(this))
+		eventBus.on(Block.EVENTS.FLOW_CDR, replaceLink.bind(this))
 	}
 
 	_createResources() {
@@ -100,7 +87,7 @@ class Block {
 		}
 	}
 
-	componentDidUpdate(oldProps: Props, newProps: Props) {
+	componentDidUpdate(oldProps: Props, newProps: Props): boolean {
 		return true
 	}
 
@@ -118,11 +105,11 @@ class Block {
 
 	_render() {
 		const block = this.render()
-		
+
 		this._removeEvents()
-		
+
 		//!Временное решение для ререндера страницы
-		this._element.innerHTML = ""
+		this._element.innerHTML = ''
 
 		this._element?.insertAdjacentHTML('afterbegin', block)
 
@@ -133,7 +120,7 @@ class Block {
 
 	// Переопределяется пользователем. Необходимо вернуть разметку
 	render(): string {
-		return ""
+		return ''
 	}
 
 	getContent() {
@@ -161,16 +148,16 @@ class Block {
 		})
 	}
 
-	_makePropsProxy(props) {
+	_makePropsProxy(props: Props) {
 		return new Proxy(props, {
-			get(target: object, prop: string) {
+			get(target: Props, prop: string) {
 				if (prop.indexOf('_') === 0) {
 					throw new Error('Отказано в доступе')
 				}
 				const value = target[prop]
 				return typeof value === 'function' ? value.bind(target) : value
 			},
-			set: (target, prop, value) => {
+			set: (target, prop: string, value) => {
 				const oldProps = { ...target }
 				target[prop] = value
 				this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target)
@@ -185,12 +172,12 @@ class Block {
 	_createDocumentElement(tagName: string) {
 		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
 		const element = document.createElement(tagName)
-		element.className = this.props.className
+		element.className = this.props.className || ''
 		return element
 	}
 
 	show() {
-		this.getContent().style.display = 'block'
+		this.getContent().style.display = 'flex'
 	}
 
 	hide() {

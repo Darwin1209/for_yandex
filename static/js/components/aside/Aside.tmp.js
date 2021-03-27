@@ -1,6 +1,6 @@
 export const template = `
 <div class="wrap-link">
-  <a class="link link_profile" href="profile.html">Профиль</a>
+  <a class="link link_profile" href="profile">Профиль</a>
 </div>
 <form class="form form-search">
   <div class="wrapper-input-search">
@@ -9,24 +9,23 @@ export const template = `
   <input type="text" class="form-search__input" placeholder="Поиск" />
 </form>
 <ul class="chats-list">
-{{#each list}}
-  <li class="chats-list__item">
-  <div class="chat">
-    <div class="chat__wrap-img">
-      <img class="chat__img" />
+  {{#each list}}
+    <li class="chats-list__item">
+    <div class="chat {{#if this.active}}chat_active{{/if}}" data-chat={{this.id}}>
+      <div class="chat__wrap-img">
+        {{#if this.avatar}}<img class="chat__img" src={{this.avatar}}/>{{/if}}
+      </div>
+      <div>
+        <p class="chat__name">{{this.title}}</p>
+        <p class="chat__message">{{this.message}}</p>
+      </div>
+      <div class="chat__wrap-date">
+        <div class="chat__date">{{this.date}}</div>
+        {{#if this.count}}<div class="chat__count">{{this.count}}</div>{{/if}}
+      </div>
     </div>
-    <div>
-      <p class="chat__name">{{this.name}}</p>
-      <p class="chat__message">{{this.message}}</p>
-    </div>
-    <div class="chat__wrap-date">
-      <div class="chat__date">{{this.date}}</div>
-      <div class="chat__count">{{this.count}}</div>
-    </div>
-  </div>
-  </li>
-{{/each}}
-  
+    </li>
+  {{/each}}
 </ul>
 `;
 //# sourceMappingURL=Aside.tmp.js.map

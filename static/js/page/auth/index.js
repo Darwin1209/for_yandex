@@ -1,5 +1,3 @@
 import Auth from './Auth.js';
-import { renderDom } from '../../utils/renderDom.js';
-const main = new Auth();
-renderDom('#root', main);
+export default Auth;
 //# sourceMappingURL=index.js.map

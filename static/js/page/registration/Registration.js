@@ -12,8 +12,9 @@ export default class Registration extends Block {
                     context: {
                         title: 'Регистрация',
                         submit: 'Зарегистрироваться',
-                        link: 'auth.html',
+                        link: '/auth',
                         linkLabel: 'Войти',
+                        type: 'registration',
                         fields,
                     },
                 }),

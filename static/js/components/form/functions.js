@@ -1,35 +1,51 @@
 import { Validation } from '../../utils/validations.js';
+import { login, registration } from '../../api/Controlers.js';
+import Router from '../../routers/Router.js';
 const CLASS_LABEL_INPUT = 'form-reg__title-input_active';
 const CLASS_LABEL_VALID = 'form-reg__valid-input_active';
-export function submit(e) {
+export function submit(e, type) {
     e.preventDefault();
-    const prepData = [];
-    for (let i = 0; i < e.currentTarget.elements.length; i++) {
-        if (e.currentTarget.elements[i].tagName === 'INPUT') {
-            prepData.push(e.currentTarget.elements[i]);
+    const prepData = new Array(...e.currentTarget.querySelectorAll('input'));
+    const notValid = prepData.some((el) => {
+        let value = el.value;
+        let valid = el.dataset.valid;
+        if (valid === 'passTwo') {
+            const pass = prepData.find((el) => el.name === 'password');
+            return !Validation[valid](value, pass.value);
         }
-    }
-    const fieldsArray = prepData.map((el) => ({
-        name: el.name,
-        value: el.value,
-        valid: el.dataset.valid ? el.dataset.valid : 'no-type',
-        label: el.previousElementSibling,
-        labelValid: el.nextElementSibling,
-    }));
-    fieldsArray.forEach(({ valid, labelValid, value }) => {
-        if (valid !== 'passTwo') {
-            const validated = Validation[valid](value);
-            validated
-                ? labelValid?.classList.remove(CLASS_LABEL_VALID)
-                : labelValid?.classList.add(CLASS_LABEL_VALID);
-        }
-        else {
-            const validated = Validation[valid](value, fieldsArray.find((el) => el.name === 'password')?.value);
-            validated
-                ? labelValid?.classList.remove(CLASS_LABEL_VALID)
-                : labelValid?.classList.add(CLASS_LABEL_VALID);
-        }
+        return !Validation[valid](value);
     });
+    if (notValid) {
+        return;
+    }
+    const form = new FormData(e.currentTarget);
+    const formData = [...form];
+    const data = {};
+    formData.forEach(([key, value]) => {
+        data[key] = value;
+    });
+    if (type === 'auth') {
+        login(data)
+            .then((resp) => {
+            console.log(resp);
+            localStorage.setItem('login', 'true');
+            new Router('#root').go('/');
+        })
+            .catch((err) => {
+            console.error(err);
+        });
+    }
+    if (type === 'registration') {
+        registration(data)
+            .then((resp) => {
+            console.log(resp);
+            localStorage.setItem('login', 'true');
+            new Router('#root').go('/');
+        })
+            .catch((err) => {
+            console.error(err);
+        });
+    }
 }
 export function focus(e) {
     if (e.target.tagName !== 'INPUT') {

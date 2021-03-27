@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "zip": "zip -r build.zip static package.json server.js README.md"
+    "dev": "tsc --watch",
+    "zip": "zip -r build.zip static src package.json server.js tsconfig.json README.md "
   },
   "repository": {
     "type": "git",

@@ -9,6 +9,7 @@ export default class Profile extends Block {
                 new ProfileComp({
                     context: {
                         changePass: true,
+                        action: 'pass',
                         fields,
                     },
                 }),

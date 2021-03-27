@@ -23,8 +23,8 @@ export var TYPES_VALIDATION;
 // }
 export const Validation = {
     regularExp: {
-        login: /^[a-z0-9_-]{3,16}$/,
-        text: /^[а-яА-Я]{3,16}$/,
+        login: /^[a-zA-Z0-9_-]{3,16}$/,
+        text: /^[а-яА-Яa-zA-Z0-9]{3,16}$/,
         pass: /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/,
         phone: /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
         mail: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
@@ -46,6 +46,9 @@ export const Validation = {
     },
     mail(string) {
         return this.regularExp.mail.test(string);
+    },
+    all(string) {
+        return true;
     },
 };
 //# sourceMappingURL=validations.js.map

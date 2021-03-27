@@ -1,5 +1,3 @@
 import E500 from './500.js';
-import { renderDom } from '../../utils/renderDom.js';
-const main = new E500();
-renderDom('#root', main);
+export default E500;
 //# sourceMappingURL=index.js.map

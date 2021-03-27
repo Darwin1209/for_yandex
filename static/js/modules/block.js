@@ -1,4 +1,5 @@
 import { EventBus } from '../utils/EventBus.js';
+import { replaceLink } from '../utils/replaceLink.js';
 class Block {
     constructor(tagName = 'div', props = {}) {
         this._meta = {
@@ -27,6 +28,7 @@ class Block {
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_CDR, replaceLink.bind(this));
     }
     _createResources() {
         const { tagName } = this._meta;
@@ -52,7 +54,6 @@ class Block {
         }
     }
     componentDidUpdate(oldProps, newProps) {
-        console.log(oldProps, newProps);
         return true;
     }
     get element() {
@@ -114,7 +115,7 @@ class Block {
         return element;
     }
     show() {
-        this.getContent().style.display = 'block';
+        this.getContent().style.display = 'flex';
     }
     hide() {
         this.getContent().style.display = 'none';

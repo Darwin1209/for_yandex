@@ -3,6 +3,7 @@ import Block from '../../modules/block.js'
 import Error from '../../components/error/index.js'
 
 import { renderChildren } from '../../utils/renderChildren.js'
+import { replaceLink } from '../../utils/replaceLink.js'
 
 export default class E500 extends Block {
 	constructor() {
@@ -13,7 +14,7 @@ export default class E500 extends Block {
 					context: {
 						code: '500',
 						message: 'Мы уже фиксим',
-						link: 'index.html',
+						link: '/',
 						linkText: 'Назад к чатам',
 					},
 				}),

@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/page/profileChangeData/index.ts"],"names":[],"mappings":"AAAA,OAAO,OAAO,MAAM,cAAc,CAAA;AAClC,OAAO,EAAE,SAAS,EAAE,MAAM,0BAA0B,CAAA;AAEpD,MAAM,IAAI,GAAY,IAAI,OAAO,EAAE,CAAA;AAEnC,SAAS,CAAC,OAAO,EAAE,IAAI,CAAC,CAAA"}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/page/profileChangeData/index.ts"],"names":[],"mappings":"AAAA,OAAO,iBAAiB,MAAM,cAAc,CAAA;AAE5C,eAAe,iBAAiB,CAAA"}
