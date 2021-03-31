@@ -2,7 +2,7 @@ import Store from '../../store/Store.js';
 import Block from '../../modules/block.js';
 import { compile } from '../../utils/templator.js';
 import { template } from './Aside.tmp.js';
-import { getChat } from '../../api/Controlers.js';
+import { getChat } from '../../controlers/Controlers.js';
 const store = new Store();
 export default class Aside extends Block {
     constructor(props) {

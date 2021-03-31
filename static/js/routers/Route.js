@@ -1,7 +1,4 @@
 import { renderDom } from '../utils/renderDom.js';
-function isEqual(lhs, rhs) {
-    return lhs === rhs;
-}
 export default class Route {
     constructor(pathname, view, props) {
         this._pathname = pathname;
@@ -22,7 +19,7 @@ export default class Route {
         }
     }
     match(pathname) {
-        return isEqual(pathname, this._pathname);
+        return this.isEqual(pathname, this._pathname);
     }
     render() {
         const { nameRoute } = this._props;
@@ -34,6 +31,9 @@ export default class Route {
             return;
         }
         this._block.show();
+    }
+    isEqual(lhs, rhs) {
+        return lhs === rhs;
     }
 }
 //# sourceMappingURL=Route.js.map

@@ -1,6 +1,5 @@
 import { Validation } from '../../utils/validations.js';
-import { login, registration } from '../../api/Controlers.js';
-import Router from '../../routers/Router.js';
+import UserController from '../../controlers/authControler.js';
 const CLASS_LABEL_INPUT = 'form-reg__title-input_active';
 const CLASS_LABEL_VALID = 'form-reg__valid-input_active';
 export function submit(e, type) {
@@ -25,26 +24,10 @@ export function submit(e, type) {
         data[key] = value;
     });
     if (type === 'auth') {
-        login(data)
-            .then((resp) => {
-            console.log(resp);
-            localStorage.setItem('login', 'true');
-            new Router('#root').go('/');
-        })
-            .catch((err) => {
-            console.error(err);
-        });
+        UserController.login(data);
     }
     if (type === 'registration') {
-        registration(data)
-            .then((resp) => {
-            console.log(resp);
-            localStorage.setItem('login', 'true');
-            new Router('#root').go('/');
-        })
-            .catch((err) => {
-            console.error(err);
-        });
+        UserController.registration(data);
     }
 }
 export function focus(e) {

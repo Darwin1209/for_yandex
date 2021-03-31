@@ -3,7 +3,7 @@ import Block from '../../modules/block.js';
 import { compile } from '../../utils/templator.js';
 import { template } from './Chat.tmp.js';
 import { list } from './mock.js';
-import { addUser, removeUser } from '../../api/Controlers.js';
+import { addUser, removeUser } from '../../controlers/Controlers.js';
 const store = new Store();
 const ACTIONS = {
     'user-add': addUser,

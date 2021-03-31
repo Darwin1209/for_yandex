@@ -11,17 +11,14 @@ class Router {
         Router.__instance = this;
     }
     use(pathname, block, nameRoute = 'title') {
-        // Вместо трёх точек напишем отдельную сущность — об этом речь пойдёт ниже
         const route = new Route(pathname, block, {
             rootQuery: this._rootQuery,
             nameRoute,
         });
         this.routes.push(route);
-        // Возврат this — основа паттерна "Builder" («Строитель»)
         return this;
     }
     start() {
-        // Реагируем на изменения в адресной строке и вызываем перерисовку
         window.onpopstate = (event) => {
             this._onRoute(event.currentTarget.location.pathname);
         };

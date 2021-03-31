@@ -1,9 +1,7 @@
 import { EventBus } from '../utils/EventBus.js'
-import Router from '../routers/Router.js'
 import { replaceLink } from '../utils/replaceLink.js'
 
 export interface Props {
-	[key: string]: any
 	events?: {
 		[key: string]: (...args: any) => void
 	}
@@ -170,7 +168,6 @@ class Block {
 	}
 
 	_createDocumentElement(tagName: string) {
-		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
 		const element = document.createElement(tagName)
 		element.className = this.props.className || ''
 		return element

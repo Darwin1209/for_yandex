@@ -16,13 +16,5 @@ function set(object, path, value) {
     }
     return object;
 }
-/*
- * set(
- *  { foo: 5 },
- *  'bar.baz',
- *  10
- *); // { foo: 5, bar: { baz: 10 } }
- * set(3, 'foo.bar', 'baz'); // 3
- */
 export default set;
 //# sourceMappingURL=set.js.map

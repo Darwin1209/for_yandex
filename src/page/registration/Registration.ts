@@ -1,9 +1,17 @@
+import Store from '../../store/Store.js'
+import Router from '../../routers/Router.js'
+
 import Block from '../../modules/block.js'
 
 import Form from '../../components/form/index.js'
 
 import { renderChildren } from '../../utils/renderChildren.js'
 import { fields } from './mock.js'
+
+import AuthController from '../../controlers/authControler.js'
+
+const router = new Router('#root')
+const store = Store.getInstance()
 
 export default class Registration extends Block {
 	constructor() {
@@ -23,13 +31,20 @@ export default class Registration extends Block {
 				}),
 			],
 		})
-	}
+		store.eventBus.on('get-user', (response) => {
+			store.setData('user', response)
+			router.go('/')
+		})
 
-	render() {
-		return ''
+		store.eventBus.on('registration-failed', () => {
+			alert('Неверный логин или пароль')
+		})
 	}
 
 	componentDidRender(): void {
+		if (store.getData('user') === undefined) {
+			AuthController.getUser()
+		}
 		renderChildren(this.element, this.props.components)
 	}
 }

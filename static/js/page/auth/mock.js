@@ -2,16 +2,15 @@ export const fields = [
     {
         type: 'text',
         name: 'login',
-        validation: 'login',
+        validation: 'all',
         label: 'Логин',
-        validText: 'Невалидный логин',
     },
     {
         type: 'password',
         name: 'password',
-        validation: 'pass',
+        validation: 'all',
         label: 'Пароль',
-        validText: 'Слабый пароль',
+        // validText: 'Слабый пароль',
         pass: true,
     },
 ];

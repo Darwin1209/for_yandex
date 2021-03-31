@@ -14,5 +14,8 @@ export default class Store {
     setData(page, payload) {
         this.data[page] = payload;
     }
+    static getInstance() {
+        return this.__instance;
+    }
 }
 //# sourceMappingURL=Store.js.map

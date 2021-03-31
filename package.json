@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Darwin1209/for_yandex#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "postcss-cli": "^8.3.1"
   }
 }

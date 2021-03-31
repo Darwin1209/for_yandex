@@ -167,10 +167,19 @@ export function changePassword(user) {
         });
     });
 }
-export function changeAvatar(avata) {
+export function changeAvatar(avatar) {
+    console.log(avatar);
+    const formData = new FormData();
+    formData.append('avatar', avatar);
     return new Promise((res, reject) => {
         api
-            .put('/user/profile/avatar', { data: avata, headers: {}, timeout: 3000 })
+            .put('/user/profile/avatar', {
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+            timeout: 3000,
+        })
             .then(({ response }) => {
             const data = JSON.parse(response);
             res(data);

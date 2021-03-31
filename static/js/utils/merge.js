@@ -10,29 +10,4 @@ function merge(lhs, rhs) {
     return lhs;
 }
 export default merge;
-merge({
-    a: {
-        b: {
-            a: 2,
-        },
-    },
-    d: 5,
-}, {
-    a: {
-        b: {
-            c: 1,
-        },
-    },
-});
-/*
-  {
-    a: {
-      b: {
-        a: 2,
-        c: 1,
-      }
-    },
-    d: 5,
-  }
-*/
 //# sourceMappingURL=merge.js.map

@@ -1,23 +1,14 @@
-import Store from '../../store/Store.js';
-import Router from '../../routers/Router.js';
-import { changePassword, changeUser, changeAvatar, } from '../../api/Controlers.js';
 import { Validation } from '../../utils/validations.js';
 const CLASS_LABEL_VALID = 'info__valid_active';
-const store = new Store();
-const router = new Router('#root');
+import UserController from '../../controlers/userControler.js';
+import AuthController from '../../controlers/authControler.js';
 export function submit(e) {
     e.preventDefault();
     const form = e.target;
     const action = form.dataset.type || 'none';
     if (action === 'avatar') {
-        console.log('hey');
-        const formData = new FormData(form);
-        changeAvatar(formData)
-            .then((resp) => store.setData('user', resp))
-            .catch((e) => {
-            console.error(e);
-            alert('Произошла ошибка');
-        });
+        const avatar = form.querySelector('input').files[0];
+        UserController.changeAvatar(avatar);
         return;
     }
     const prepData = new Array(...form.querySelectorAll('input'));
@@ -40,23 +31,11 @@ export function submit(e) {
         data[key] = value;
     });
     if (action === 'data') {
-        changeUser(data)
-            .then((resp) => store.setData('user', resp))
-            .catch((e) => {
-            console.error(e);
-        });
+        UserController.changeProfile(data);
     }
     if (action === 'pass') {
         delete data.newPasswordCopy;
-        changePassword(data)
-            .then((resp) => {
-            console.log(resp);
-            router.go('/profile');
-        })
-            .catch((e) => {
-            console.error(e);
-            alert('Неверно введён пароль');
-        });
+        UserController.changePassword(data);
     }
 }
 export function focus() { }
@@ -70,32 +49,26 @@ export function blur(e) {
     const labelValid = inp.nextElementSibling;
     if (valid !== 'passTwo') {
         const valideted = Validation[valid](inp.value);
-        console.log(valideted);
         valideted
             ? labelValid?.classList.remove(CLASS_LABEL_VALID)
             : labelValid?.classList.add(CLASS_LABEL_VALID);
     }
     else {
         let pass = document.querySelector('input[data-valid=pass]');
-        // for (let i = 0; i < e.currentTarget.elements.length; i++) {
-        // 	const item = e.currentTarget.elements[i] as HTMLInputElement
-        // 	if (item.name === 'password') {
-        // 		pass = item.value
-        // 		break
-        // 	}
-        // }
         const valideted = Validation[valid](inp.value, pass.value);
         valideted
             ? labelValid?.classList.remove(CLASS_LABEL_VALID)
             : labelValid?.classList.add(CLASS_LABEL_VALID);
     }
 }
-export function click(e, target) {
-    if (e.target.className === 'person__change') {
-        target.props.context = {
-            ...target.props.context,
-            changeAvatar: true,
-        };
+export function click(e) {
+    const item = e.target;
+    const closestItem = item.closest('button');
+    if (closestItem?.classList?.contains('button_logout')) {
+        const logout = confirm('Вы уверены?');
+        if (logout) {
+            AuthController.logout();
+        }
     }
 }
 //# sourceMappingURL=functions.js.map

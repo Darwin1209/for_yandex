@@ -1,13 +1,14 @@
-import Store from '../../store/Store.js'
+import Store from '../../../store/Store.js'
+import ChatsController from '../../../controlers/chatsControler.js'
 
-import Block, { Props } from '../../modules/block.js'
+import Block, { Props } from '../../../modules/block.js'
 
-import { compile } from '../../utils/templator.js'
+import { compile } from '../../../utils/templator.js'
 import { template } from './Aside.tmp.js'
 
-import { getChat } from '../../api/Controlers.js'
+import { getChat } from '../../../controlers/Controlers.js'
 
-const store = new Store()
+const store = Store.getInstance()
 
 export default class Aside extends Block {
 	constructor(props: Props) {
@@ -35,25 +36,20 @@ export default class Aside extends Block {
 				},
 			},
 		})
+
+		store.eventBus.on('get-chats', () => {
+			this.eventBus.emit('flow:render')
+		})
 	}
 
 	render() {
+		const chats = store.getData('chats')
 		return compile(template, {
-			list: this.props.items,
+			list: chats,
 		})
 	}
 
 	componentDidMount() {
-		getChat().then(() => {
-			const chats = store.getData('chats')
-			this.setProps({
-				...this.props,
-				items: chats.map(({ id, title, avatar }) => ({
-					id,
-					title,
-					avatar,
-				})),
-			})
-		})
+		ChatsController.getChats()
 	}
 }

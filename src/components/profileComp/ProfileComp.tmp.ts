@@ -7,7 +7,7 @@ export const template: string = `
       <p class="modal__title">Загрузить файл</p>
       <label class="modal__link">
         <span>Выбрать файл на<br />компьютере</span>
-        <input type="file" class="modal__input">
+        <input type="file" class="modal__input visually-hidden" accept="image/*" name="avatar">
       </label>
       <button class="modal__submit" type="submit">Поменять</button>
     </form>
@@ -22,11 +22,11 @@ export const template: string = `
   <div class="profile__wrap-person person">
     <div class="person__logo">
       <div class="person__wrap-img">
-        <img src="{{userInfo.avatar}}" alt="" class="person__img" />
+        <img src="https://ya-praktikum.tech{{userInfo.avatar}}" alt="" class="person__img" />
       </div>
       <div class="person__change">Поменять аватар</div>
     </div>
-    <p class="person__name">{{#if context.profile}}{{userInfo.display_name}}{{else}}&nbsp;{{/if}}</p>
+    <p class="person__name">{{#if context.profile}}{{userName}}{{else}}&nbsp;{{/if}}</p>
   </div>
   <form class="profile__wrap-info info" data-type={{context.action}}>
 
