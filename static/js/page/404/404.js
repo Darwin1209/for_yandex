@@ -1,7 +1,7 @@
 import Block from '../../modules/block.js';
 import Error from '../../components/error/index.js';
 import { renderChildren } from '../../utils/renderChildren.js';
-export default class E404 extends Block {
+export class E404 extends Block {
     constructor() {
         super('main', {
             className: 'main',

@@ -1,0 +1,11 @@
+export const BASE_URL = 'https://ya-praktikum.tech/api/v2';
+export const GET_USER = '/auth/user';
+export const SIGN_UP = '/auth/signup';
+export const SIGN_IN = '/auth/signin';
+export const LOGOUT = '/auth/logout';
+export const PROFILE = '/user/profile';
+export const AVATAR = '​/user​/profile​/avatar';
+export const PASSWORD = '​/user​/password';
+export const CHATS = '/chats';
+export const CHATS_USER = '/chats/users';
+//# sourceMappingURL=constant.js.map

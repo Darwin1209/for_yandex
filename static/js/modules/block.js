@@ -1,6 +1,6 @@
 import { EventBus } from '../utils/EventBus.js';
 import { replaceLink } from '../utils/replaceLink.js';
-class Block {
+export default class Block {
     constructor(tagName = 'div', props = {}) {
         this._meta = {
             tagName: '',
@@ -109,7 +109,6 @@ class Block {
         });
     }
     _createDocumentElement(tagName) {
-        // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
         const element = document.createElement(tagName);
         element.className = this.props.className || '';
         return element;
@@ -128,5 +127,4 @@ Block.EVENTS = {
     FLOW_CDU: 'flow:component-did-update',
     FLOW_CDR: 'flow:component-did-render',
 };
-export default Block;
 //# sourceMappingURL=block.js.map

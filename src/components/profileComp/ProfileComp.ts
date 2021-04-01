@@ -1,4 +1,5 @@
 import Store from '../../store/Store.js'
+import Router from '../../routers/Router.js'
 
 import Block, { Props } from '../../modules/block.js'
 
@@ -10,12 +11,7 @@ import { blur, submit, click } from './functions.js'
 import AuthController from '../../controlers/authControler.js'
 
 const store = new Store()
-
-type Event = {
-	preventDefault(): void
-	target: HTMLFormElement
-	currentTarget: HTMLFormElement
-}
+const router = new Router('#root')
 
 export default class ProfileComp extends Block {
 	constructor(props: Props) {
@@ -32,6 +28,9 @@ export default class ProfileComp extends Block {
 		})
 		store.eventBus.on('get-user', () => {
 			this.eventBus.emit('flow:render')
+		})
+		store.eventBus.on('user-failed', () => {
+			router.go('/auth')
 		})
 		store.eventBus.on('change-user', () => {
 			this.eventBus.emit('flow:render')

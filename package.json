@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "tsc --watch",
-    "zip": "zip -r build.zip static src package.json server.js tsconfig.json README.md "
+    "zip": "zip -r build.zip static src package.json package-lock.json server.ts tsconfig.json README.md "
   },
   "repository": {
     "type": "git",

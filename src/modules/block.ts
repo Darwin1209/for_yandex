@@ -12,7 +12,7 @@ export interface Props {
 	list?: object[]
 }
 
-class Block {
+export default class Block {
 	props: Props
 	eventBus: EventBus
 	_events: object
@@ -181,5 +181,3 @@ class Block {
 		this.getContent().style.display = 'none'
 	}
 }
-
-export default Block

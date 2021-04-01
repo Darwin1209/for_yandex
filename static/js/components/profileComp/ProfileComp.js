@@ -1,10 +1,12 @@
 import Store from '../../store/Store.js';
+import Router from '../../routers/Router.js';
 import Block from '../../modules/block.js';
 import { template } from './ProfileComp.tmp.js';
 import { compile } from '../../utils/templator.js';
 import { blur, submit, click } from './functions.js';
 import AuthController from '../../controlers/authControler.js';
 const store = new Store();
+const router = new Router('#root');
 export default class ProfileComp extends Block {
     constructor(props) {
         const user = store.getData('user');
@@ -20,6 +22,9 @@ export default class ProfileComp extends Block {
         });
         store.eventBus.on('get-user', () => {
             this.eventBus.emit('flow:render');
+        });
+        store.eventBus.on('user-failed', () => {
+            router.go('/auth');
         });
         store.eventBus.on('change-user', () => {
             this.eventBus.emit('flow:render');

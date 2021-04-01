@@ -9,11 +9,9 @@ export default class UserController {
         userApi
             .changeProfile(form)
             .then((response) => {
-            if (response === 'OK') {
-                store.setData('user', response);
-                store.eventBus.emit('change-user', response);
-                router.go('/profile');
-            }
+            store.setData('user', response);
+            store.eventBus.emit('change-user', response);
+            router.go('/profile');
         })
             .catch((e) => {
             store.eventBus.emit('change-user-failed');
@@ -23,10 +21,8 @@ export default class UserController {
     static changePassword(form) {
         userApi
             .changePassword(form)
-            .then((response) => {
-            if (response === 'OK') {
-                router.go('/profile');
-            }
+            .then(() => {
+            router.go('/profile');
         })
             .catch((e) => {
             store.eventBus.emit('change-pass-failed');
@@ -39,10 +35,8 @@ export default class UserController {
         userApi
             .changeAvatar(formData)
             .then((response) => {
-            if (response === 'OK') {
-                store.setData('user', response);
-                store.eventBus.emit('change-user', response);
-            }
+            store.setData('user', response);
+            store.eventBus.emit('change-user', response);
         })
             .catch((e) => {
             store.eventBus.emit('change-avatar-failed');
