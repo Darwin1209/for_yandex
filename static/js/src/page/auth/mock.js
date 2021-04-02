@@ -10,7 +10,6 @@ export const fields = [
         name: 'password',
         validation: 'all',
         label: 'Пароль',
-        // validText: 'Слабый пароль',
         pass: true,
     },
 ];

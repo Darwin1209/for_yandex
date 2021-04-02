@@ -52,13 +52,14 @@ export default class ProfileComp extends Block {
 
 		const context = this.props.context
 		if (user !== undefined) {
-			context.fields = context.fields.map((field) => ({
+			context.fields = context.fields.map((field: any) => ({
 				...field,
 				value: user?.[field.name],
 			}))
 		}
-		const userName = context.fields.find((el) => el.name === 'display_name')
-			?.value
+		const userName = context.fields.find(
+			(el: any) => el.name === 'display_name'
+		)?.value
 		return compile(template, { context, userName })
 	}
 }

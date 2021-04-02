@@ -1,4 +1,4 @@
-import { UserApi, Password, Profile, Avatar } from '../api/userApi.js'
+import { UserApi, Password, Profile } from '../api/userApi.js'
 import Router from '../routers/Router.js'
 import Store from '../store/Store.js'
 
@@ -34,7 +34,7 @@ export default class UserController {
 			})
 	}
 
-	static changeAvatar(avatar: Avatar) {
+	static changeAvatar(avatar: any) {
 		const formData = new FormData()
 		formData.append('avatar', avatar)
 		userApi
@@ -45,6 +45,7 @@ export default class UserController {
 			})
 			.catch((e) => {
 				store.eventBus.emit('change-avatar-failed')
+				console.error(e)
 			})
 	}
 }

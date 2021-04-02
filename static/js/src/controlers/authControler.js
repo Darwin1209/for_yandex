@@ -12,16 +12,15 @@ export default class AuthController {
             store.setData('user', response);
             store.eventBus.emit('get-user', response);
         })
-            .catch((e) => {
+            .catch(() => {
             store.eventBus.emit('user-failed');
-            console.error(e);
         });
     }
     static login(form) {
         authApi
             .login(form)
             .then((response) => {
-            if (response === 'Ok') {
+            if (response === 'OK') {
                 router.go('/');
             }
         })
@@ -34,7 +33,7 @@ export default class AuthController {
         authApi
             .registration(form)
             .then((response) => {
-            if (response === 'Ok') {
+            if (response.id) {
                 router.go('/');
             }
         })
@@ -47,7 +46,7 @@ export default class AuthController {
         authApi
             .logout()
             .then((response) => {
-            if (response === 'Ok') {
+            if (response === 'OK') {
                 router.go('/auth');
             }
         })

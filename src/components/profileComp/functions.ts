@@ -17,14 +17,14 @@ export function submit(e: Event): void {
 	const action: string = form.dataset.type || 'none'
 
 	if (action === 'avatar') {
-		const avatar: HTMLInputElement = form.querySelector('input').files[0]
+		const avatar: any = form?.querySelector('input')?.files?.[0]
 
 		UserController.changeAvatar(avatar)
 
 		return
 	}
 
-	const prepData = new Array(...form.querySelectorAll('input'))
+	const prepData = new Array(...(form.querySelectorAll('input') as any))
 	const notValid = prepData.some((el) => {
 		let value = el.value
 		let valid = el.dataset.valid
@@ -40,9 +40,9 @@ export function submit(e: Event): void {
 		return
 	}
 
-	const formValue = new FormData(form)
+	const formValue = new FormData(form) as any
 	const formData = [...formValue]
-	const data = {}
+	const data: any = {}
 	formData.forEach(([key, value]) => {
 		data[key] = value
 	})
@@ -88,7 +88,7 @@ export function blur(e: Event): void {
 
 export function click(e: Event): void {
 	const item = e.target
-	const closestItem: HTMLElement = item.closest('button')
+	const closestItem: any = item.closest('button')
 
 	if (closestItem?.classList?.contains('button_logout')) {
 		const logout = confirm('Вы уверены?')

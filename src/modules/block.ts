@@ -8,8 +8,11 @@ export interface Props {
 	components?: Block[]
 	className?: string | undefined
 	items?: object[]
-	context?: {}
+	context?: any
 	list?: object[]
+	rootQuery?: string | undefined
+	nameRoute?: string
+	currentChat?: any
 }
 
 export default class Block {
@@ -86,6 +89,9 @@ export default class Block {
 	}
 
 	componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+		if (oldProps === newProps) {
+			console.log('ident props')
+		}
 		return true
 	}
 
@@ -148,11 +154,11 @@ export default class Block {
 
 	_makePropsProxy(props: Props) {
 		return new Proxy(props, {
-			get(target: Props, prop: string) {
+			get(target: any, prop: string) {
 				if (prop.indexOf('_') === 0) {
 					throw new Error('Отказано в доступе')
 				}
-				const value = target[prop]
+				const value: any = target[prop]
 				return typeof value === 'function' ? value.bind(target) : value
 			},
 			set: (target, prop: string, value) => {

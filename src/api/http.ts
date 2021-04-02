@@ -27,10 +27,7 @@ class HTTPTransport {
 		this._baseUrl = path
 	}
 
-	get(
-		url: string,
-		options: Options
-	): Promise<XMLHttpRequest> {
+	get(url: string, options: Options): Promise<XMLHttpRequest> {
 		const { data, timeout } = options
 		return this.request(
 			`${url}?${queryStringify(data)}`,
@@ -88,7 +85,7 @@ class HTTPTransport {
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest()
 			xhr.withCredentials = true
-			xhr.open(method, `${this._baseUrl}${url}`)
+			xhr.open(method || 'GET', `${this._baseUrl}${url}`)
 			xhr.timeout = timeout
 
 			if (headers !== undefined) {

@@ -13,7 +13,9 @@ type Event = {
 
 export function submit(e: Event, type: string): void {
 	e.preventDefault()
-	const prepData = new Array(...e.currentTarget.querySelectorAll('input'))
+	const prepData = new Array(
+		...(e.currentTarget.querySelectorAll('input') as any)
+	)
 	const notValid = prepData.some((el) => {
 		let value = el.value
 		let valid = el.dataset.valid
@@ -28,9 +30,9 @@ export function submit(e: Event, type: string): void {
 		return
 	}
 
-	const form = new FormData(e.currentTarget)
+	const form = new FormData(e.currentTarget) as any
 	const formData = [...form]
-	const data = {}
+	const data: any = {}
 	formData.forEach(([key, value]) => {
 		data[key] = value
 	})

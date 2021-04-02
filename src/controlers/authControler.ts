@@ -24,13 +24,11 @@ export default class AuthController {
 		authApi
 			.login(form)
 			.then((response) => {
-				console.log(response)
 				if (response === 'OK') {
 					router.go('/')
 				}
 			})
 			.catch((e) => {
-				console.log(e)
 				store.eventBus.emit('login-failed')
 				console.error(e)
 			})
@@ -54,13 +52,11 @@ export default class AuthController {
 		authApi
 			.logout()
 			.then((response) => {
-				console.log(response)
 				if (response === 'OK') {
 					router.go('/auth')
 				}
 			})
 			.catch((e) => {
-				console.log(e)
 				store.eventBus.emit('logout-failed')
 				console.error(e)
 			})
